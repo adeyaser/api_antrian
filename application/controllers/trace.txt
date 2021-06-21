@@ -1,0 +1,13 @@
+   date_default_timezone_set('Asia/Jakarta');
+        $tanggal = date('y-m-d H:i:s');
+        $tgl= date('d-m-Y');
+        $query ="select * from (
+                 SELECT 
+                 id_antrian,
+                 DATE_FORMAT(tanggal,'%d-%m-%Y') as tgl_sort
+                 FROM (
+                 SELECT * FROM ANTRIAN WHERE AKTIF ='Y' ORDER BY TANGGAL ASC LIMIT 1)T 
+                 )A where tgl_sort ='$tgl'";
+        $sequence_antrian = $this->db->query($query)->result();
+
+        print_r($sequence_antrian);die;
